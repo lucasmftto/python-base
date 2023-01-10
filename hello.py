@@ -6,5 +6,5 @@
 print('Hello, Word!')
 
 print('lucas'.upper())
-print(1+3)
+print(2+3)
 
