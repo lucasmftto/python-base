@@ -7,4 +7,3 @@ print('Hello, Word!')
 
 print('lucas'.upper())
 print(2+3)
-
