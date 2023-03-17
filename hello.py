@@ -11,13 +11,33 @@ tenha a variavel LANG configurada
     export=pt_BR
 
 """
-__version__ = "0.0.2    "
+__version__ = "0.0.3"
 __author__ = "Lucas FAvaretto"
 __license__ = "Unlicense"
 
 import os
+import sys
 
-current_languge = os.getenv("LANG", "en_US")[:5]
+arguments = {"lang": None, "count": 1}
+
+for arg in sys.argv[1:]:
+    key, value = arg.split("=")
+    key = key.lstrip("-").strip()
+    value = value.strip()
+    if key not in arguments:
+        print(f"Invalid Option `{key}`")
+        sys.exit()
+    arguments[key] = value
+
+current_languge = arguments["lang"]
+if current_languge is None:
+    current_languge = os.getenv("LANG")
+    if current_languge is None:
+        current_languge = input(
+            "Choose a language: "
+        )
+
+current_languge = current_languge[:5]
 
 msg = {
     "en_US": "Hello, World!",
@@ -28,5 +48,5 @@ msg = {
 }
 
 
-print(msg[current_languge])
+print(msg[current_languge] * int(arguments["count"]))
 
