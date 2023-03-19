@@ -1,9 +1,13 @@
+#!/usr/bin/env python3
+
 __version__ = "0.1.0"
 __author__ = "Lucas FAvaretto"
 __license__ = "Unlicense"
 
 import os
 import sys
+
+from datetime import datetime
 
 args = sys.argv[1:]
 operators = {"sum": None, "sub": None, "mul": None, "div": None}
@@ -55,6 +59,14 @@ elif operator == "mul":
 
 elif operator == "div":
     result = numberOne / numberTwo
+
+path = os.curdir
+filepath = os.path.join(path, "infixcalc.log")
+timestamp = datetime.now().isoformat()
+user = os.getenv('USER', 'anonymous')
+
+with open(filepath, "a") as file_:
+    file_.write(f"{timestamp} - {user} - {operator}, {numberOne}, {numberTwo} = {result}\n")
     
 # print(result)
 print(f"Result is: {result}")
