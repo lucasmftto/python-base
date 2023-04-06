@@ -21,7 +21,13 @@ import sys
 arguments = {"lang": None, "count": 1}
 
 for arg in sys.argv[1:]:
-    key, value = arg.split("=")
+    try:
+        key, value = arg.split("=")
+    except ValueError as e:
+        print(f"[Error]: {str(e)}")
+        print("You need to use `=`")
+        sys.exit(1)
+
     key = key.lstrip("-").strip()
     value = value.strip()
     if key not in arguments:
@@ -47,6 +53,15 @@ msg = {
     "fr_FR": "Bonjour, Monde!",
 }
 
+try:
+    message = msg[current_languge]
+except KeyError as e:
+    print(f"[ERROR]: {str(e)}")
+    print(f"Language is Invalide, choose from: {list(msg.keys()) }")
+    sys.exit(1)
 
-print(msg[current_languge] * int(arguments["count"]))
+
+# message = msg.get(current_languge, msg["pt_BR"])
+
+print(message * int(arguments["count"]))
 

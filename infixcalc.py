@@ -44,7 +44,11 @@ for num in nums:
         num = int(num)
     validated_nums.append(num)
 
-numberOne, numberTwo = validated_nums
+try:
+    numberOne, numberTwo = validated_nums
+except ValueError as e:
+    print(str(e))
+    sys.exit(1)
 
 # print(numberTwo)
 
@@ -65,9 +69,15 @@ filepath = os.path.join(path, "infixcalc.log")
 timestamp = datetime.now().isoformat()
 user = os.getenv('USER', 'anonymous')
 
-with open(filepath, "a") as file_:
-    file_.write(f"{timestamp} - {user} - {operator}, {numberOne}, {numberTwo} = {result}\n")
-    
 # print(result)
 print(f"Result is: {result}")
+
+try:
+    with open(filepath, "a") as file_:
+        file_.write(f"{timestamp} - {user} - {operator}, {numberOne}, {numberTwo} = {result}\n")
+except PermissionError as e:
+    print(str(e))
+    sys.exit(1)      
+    
+
     
