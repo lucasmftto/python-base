@@ -17,6 +17,18 @@ __license__ = "Unlicense"
 
 import os
 import sys
+import logging
+
+log_level = os.getenv("LOG_LEVEL", "DEBUG").upper()
+log = logging.Logger("logs.py", log_level)
+ch = logging.StreamHandler()
+ch.setLevel(log_level)
+fmt = logging.Formatter(
+    '%(asctime)s %(name)s %(levelname)s l:%(lineno)d f:%(filename)s: %(message)s'
+)
+ch.setFormatter(fmt)
+log.addHandler(ch)
+
 
 arguments = {"lang": None, "count": 1}
 
@@ -24,8 +36,8 @@ for arg in sys.argv[1:]:
     try:
         key, value = arg.split("=")
     except ValueError as e:
-        print(f"[Error]: {str(e)}")
-        print("You need to use `=`")
+        log.error("Erro ao realizar split: %s ", {str(e)})
+        log.info("You need to use `=`")
         sys.exit(1)
 
     key = key.lstrip("-").strip()
