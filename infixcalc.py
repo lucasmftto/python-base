@@ -15,13 +15,19 @@ operator = None
 numberOne: float
 numberTwo: float
 
+validated_operations = {
+    "sum": lambda n1, n2: n1 + n2,
+    "sub": lambda n1, n2: n1 - n2,
+    "mul": lambda n1, n2: n1 * n2,
+    "div": lambda n1, n2: n1 / n2,
+}
 # print(sys.argv)
 # print(sys.argv[1])
 
 if not args:
     operator = input("Operação:")
     numberOne = input("n1:")
-    numberTwo = input("n1:")
+    numberTwo = input("n2:")
     args = [operator, numberOne, numberTwo]
 elif len(sys.argv[1:]) != 3:
     print("Argumentos invalidos!")
@@ -52,17 +58,8 @@ except ValueError as e:
 
 # print(numberTwo)
 
-if operator == "sum":
-    result = numberOne + numberTwo
+result = validated_operations[operator](numberOne, numberTwo)
 
-elif operator == "sub":
-    result = numberOne - numberTwo
-
-elif operator == "mul":
-    result = numberOne * numberTwo
-
-elif operator == "div":
-    result = numberOne / numberTwo
 
 path = os.curdir
 filepath = os.path.join(path, "infixcalc.log")

@@ -9,12 +9,7 @@ names = ["Lucas", "Favaretto", "Python", "Bruno", "Campinas"]
 
 # TODO: Usar lambda
 
-def starts_with_b(name):
-    return name[0].lower() == "b"
 
 
 
-
-
-
-
+print(*list(filter(lambda text: text[0].lower() == "b", names)), sep="\n")

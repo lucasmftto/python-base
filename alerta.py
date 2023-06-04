@@ -22,14 +22,17 @@ import logging
 
 log = logging.getLogger("alerta")
 
+def get_input(msg):
+    return float(input(msg).strip())
+
 try:
-    temperatura = float(input("Qual temperatura atual? ").strip())
+    temperatura = get_input("Qual temperatura atual? ")
 except ValueError:
     log.error("Temperatura invalida")
     sys.exit(1)
 
 try:
-    umidade = float(input("Qual o indice de umidade? ").strip())
+    umidade = float(get_input("Qual o indice de umidade? "))
 except ValueError:
     log.error("Umidade invalida")
     sys.exit(1)
